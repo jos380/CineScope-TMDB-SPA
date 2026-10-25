@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover movies, explore genres, and build your personal watchlist with CineScope.">
+  <title>CineScope | Movie Discovery</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="CineScope home"><span class="brand-mark" aria-hidden="true">▶</span> CineScope</a>
+    <nav aria-label="Main navigation">
+      <button class="nav-button active" data-view="home" type="button">Discover</button>
+      <button class="nav-button" data-view="watchlist" type="button">My Watchlist <span id="watchlist-count" class="count">0</span></button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">YOUR NEXT GREAT MOVIE STARTS HERE</p>
+        <h1 id="hero-title">Find a story<br><span>worth watching.</span></h1>
+        <p class="hero-copy">Explore popular films, discover new favourites, and keep your watchlist in one place.</p>
+        <form id="search-form" role="search" class="search-form">
+          <label class="visually-hidden" for="search-input">Search movies by title</label>
+          <span class="search-symbol" aria-hidden="true">⌕</span>
+          <input id="search-input" name="query" type="search" autocomplete="off" placeholder="Search for a movie..." aria-describedby="search-help">
+          <button class="primary-button" type="submit">Search</button>
+          <div id="suggestions" class="suggestions" role="listbox" aria-label="Movie suggestions" hidden></div>
+        </form>
+        <p id="search-help" class="help-text">Try a title such as “Inception” or “Dune”.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-disc">C<span>+</span></div><div class="art-star star-one">✦</div><div class="art-star star-two">✧</div></div>
+    </section>
+
+    <section class="toolbar section-wrap" aria-label="Movie filters">
+      <div class="section-heading">
+        <div><p class="eyebrow" id="section-eyebrow">CURATED FOR YOU</p><h2 id="section-title">Popular right now</h2></div>
+        <p id="result-count" class="result-count"></p>
+      </div>
+      <div class="filters">
+        <div class="filter-field">
+          <label for="genre-filter">Genre</label>
+          <select id="genre-filter"><option value="">All genres</option></select>
+        </div>
+        <div class="filter-field">
+          <label for="sort-filter">Sort results</label>
+          <select id="sort-filter">
+            <option value="popularity.desc">Most popular</option>
+            <option value="vote_average.desc">Highest rated</option>
+            <option value="primary_release_date.desc">Newest releases</option>
+            <option value="original_title.asc">Title A–Z</option>
+          </select>
+        </div>
+        <button id="clear-filters" class="secondary-button" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section class="section-wrap results-section" aria-labelledby="section-title">
+      <div id="status-message" class="status-message" role="status" aria-live="polite">Loading movies…</div>
+      <div id="movie-grid" class="movie-grid" aria-label="Movie results"></div>
+      <div class="pagination" id="pagination" hidden>
+        <button id="previous-page" class="secondary-button" type="button">← Previous</button>
+        <span id="page-label" aria-live="polite">Page 1</span>
+        <button id="next-page" class="secondary-button" type="button">Next →</button>
+      </div>
+    </section>
+
+    <section class="tmdb-credit" aria-label="Data attribution">
+      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+    </section>
+  </main>
+
+  <div id="movie-dialog" class="dialog-backdrop" hidden>
+    <section class="movie-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <button id="close-dialog" class="close-button" type="button" aria-label="Close movie details">×</button>
+      <div id="dialog-content"></div>
+    </section>
+  </div>
+
+  <footer class="site-footer"><span>© <span id="current-year"></span> CineScope</span><span>Made for movie lovers.</span></footer>
+</body>
+</html>
